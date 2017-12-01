@@ -1,16 +1,12 @@
 import Data.Char (digitToInt)
+import Data.Maybe (catMaybes)
 
-matches :: [Int] -> [Int]
-matches (x:xs) = matches' $ x : xs ++ [x]
+pairs xs= zip xs (tail xs ++ [head xs])
 
-matches' :: [Int] -> [Int]
-matches' [] = []
-matches' (x:y:xs)
-    | x == y = x : matches' xs
-    | otherwise = matches' (y:xs)
+matches :: [(Int, Int)] -> [Maybe Int]
+matches = map (\(x, y) -> if x == y then Just x else Nothing)
 
 main = do
     input <- readFile "1.1.txt"
     let digits = map digitToInt input
-    print $ digits
-    print . sum $ matches digits
+    print . sum . catMaybes . matches $ pairs digits
