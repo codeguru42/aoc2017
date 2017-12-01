@@ -11,9 +11,17 @@ pairs2 xs = zip xs (drop n xs ++ take n xs)
 matches :: [(Int, Int)] -> [Maybe Int]
 matches = map (\(x, y) -> if x == y then Just x else Nothing)
 
+day1 ::  [(Int, Int)] -> Int
+day1 = sum . catMaybes . matches
+
+part1 :: [Int] -> Int
+part1 = day1 . pairs1
+
+part2 :: [Int] -> Int
+part2 = day1 . pairs2
+
 main = do
     input <- readFile "1.txt"
     let digits = map digitToInt input
-    let doIt = sum . catMaybes . matches
-    print . doIt $ pairs1 digits
-    print . doIt $ pairs2 digits
+    print $ part1 digits
+    print $ part2 digits
