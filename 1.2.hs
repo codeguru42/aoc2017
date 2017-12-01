@@ -1,7 +1,7 @@
 import Data.Char (digitToInt)
 import Data.Maybe (catMaybes)
 
-pairs xs= zip xs (drop n xs ++ take n xs)
+pairs xs = zip xs (drop n xs ++ take n xs)
     where n = length xs `div` 2
 
 matches :: [(Int, Int)] -> [Maybe Int]

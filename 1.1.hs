@@ -1,7 +1,7 @@
 import Data.Char (digitToInt)
 import Data.Maybe (catMaybes)
 
-pairs xs= zip xs (tail xs ++ [head xs])
+pairs xs = zip xs (tail xs ++ [head xs])
 
 matches :: [(Int, Int)] -> [Maybe Int]
 matches = map (\(x, y) -> if x == y then Just x else Nothing)
