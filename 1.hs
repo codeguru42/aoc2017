@@ -1,8 +1,10 @@
 import Data.Char (digitToInt)
 import Data.Maybe (catMaybes)
 
+pairs1 :: [Int] -> [(Int, Int)]
 pairs1 xs = zip xs (tail xs ++ [head xs])
 
+pairs2 :: [Int] -> [(Int, Int)]
 pairs2 xs = zip xs (drop n xs ++ take n xs)
     where n = length xs `div` 2
 
