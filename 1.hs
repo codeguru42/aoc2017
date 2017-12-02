@@ -20,14 +20,14 @@ pairs2 xs = zip xs (drop n xs ++ take n xs)
 matches :: [(Int, Int)] -> [Maybe Int]
 matches = map (\(x, y) -> if x == y then Just x else Nothing)
 
-day1 ::  [(Int, Int)] -> Int
-day1 = sum . catMaybes . matches
+day1 ::  ([Int] -> [(Int, Int)]) -> String  -> Int
+day1 f = sum . catMaybes . matches . f . parse
 
 part1 :: String -> Int
-part1 = day1 . pairs1 . parse
+part1 = day1 pairs1
 
 part2 :: String -> Int
-part2 = day1 . pairs2 . parse
+part2 = day1 pairs2
 
 parse = map digitToInt
 
