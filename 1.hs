@@ -1,5 +1,8 @@
 import Data.Char (digitToInt)
 import Data.Maybe (catMaybes)
+import Test.HUnit
+
+test1_1 = "test1_1" ~: 3 ~=? (part1 [1, 1, 2, 2])
 
 pairs1 :: [Int] -> [(Int, Int)]
 pairs1 xs = zip xs (tail xs ++ [head xs])
@@ -21,6 +24,7 @@ part2 :: [Int] -> Int
 part2 = day1 . pairs2
 
 main = do
+    runTestTT test1_1
     input <- readFile "1.txt"
     let digits = map digitToInt input
     print $ part1 digits
