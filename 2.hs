@@ -23,4 +23,4 @@ checksum = sum . diffAll . parse
 main = do
     runTestTT allTests
     input <- readFile "2.txt"
-    print $ parse input
+    print $ checksum input
