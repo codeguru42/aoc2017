@@ -10,6 +10,7 @@ allTests = test [testSplitOnTabs
                 , testIsDivisibleFalse
                 , testIsDivisibleTrue
                 , testDivisiblePairs
+                , testPart2
                 ]
 testSplitOnTabs = "testSplitOnTabs" ~: [pack "foo", pack "bar"] ~=? (splitOnTabs $ pack "foo\tbar")
 testSplitAll = "testSplitAll" ~: [ [pack "foo", pack "bar"]
@@ -23,6 +24,7 @@ testAllPairs = "testAllPairs" ~: [(1, 2), (1, 3), (2, 3)] ~=? allPairs [1, 2, 3]
 testIsDivisibleFalse = "testIsDivisible" ~: False ~=? isDivisible (3, 5)
 testIsDivisibleTrue = "testIsDivisible" ~: True ~=? isDivisible (3, 12)
 testDivisiblePairs = "testDivisiblePairs" ~: [(2, 8), (2, 6), (2, 4), (8, 4), (3, 6)] ~=? divisiblePairs [2, 7, 8, 3, 6, 4]
+testPart2 = "testPart2" ~: 4 ~=? part2 [5, 12, 7, 3]
 
 splitOnTabs = T.splitOn (pack "\t")
 splitAll = (Prelude.map splitOnTabs) . T.lines . pack
@@ -37,6 +39,8 @@ allPairs (x:xs) = Prelude.map (\y -> (x,y)) xs ++ allPairs xs
 
 isDivisible (x,y) = x `mod` y == 0 || y `mod` x == 0
 divisiblePairs = Prelude.filter isDivisible . allPairs
+part2 xs = x `div` y
+    where (x, y) = Prelude.head $ divisiblePairs xs
 
 main = do
     runTestTT allTests
