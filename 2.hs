@@ -11,8 +11,9 @@ testParse = "testParse" ~: [[1, 2], [3, 4]] ~=? parse "1\t2\n3\t4\n"
 
 splitOnTabs = T.splitOn (pack "\t")
 splitAll = (Prelude.map splitOnTabs) . T.lines . pack
-parse = undefined
+parse = Prelude.map (Prelude.map $ (read :: String -> Int) . unpack) . splitAll
 
 main = do
     runTestTT allTests
     input <- readFile "2.txt"
+    print $ parse input
