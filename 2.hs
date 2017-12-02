@@ -1,7 +1,13 @@
 import Test.HUnit
 import Data.Text as T
 
-allTests = test [testSplitOnTabs, testSplitAll, testParse, testPart1, testChecksum1, testAllPairs]
+allTests = test [testSplitOnTabs
+                , testSplitAll
+                , testParse
+                , testPart1
+                , testChecksum1
+                , testAllPairs
+                ]
 testSplitOnTabs = "testSplitOnTabs" ~: [pack "foo", pack "bar"] ~=? (splitOnTabs $ pack "foo\tbar")
 testSplitAll = "testSplitAll" ~: [ [pack "foo", pack "bar"]
                                    , [pack "fooze", pack "baz"]
