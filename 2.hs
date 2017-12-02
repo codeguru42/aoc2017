@@ -7,6 +7,8 @@ allTests = test [testSplitOnTabs
                 , testPart1
                 , testChecksum1
                 , testAllPairs
+                , testIsDivisibleFalse
+                , testIsDivisibleTrue
                 ]
 testSplitOnTabs = "testSplitOnTabs" ~: [pack "foo", pack "bar"] ~=? (splitOnTabs $ pack "foo\tbar")
 testSplitAll = "testSplitAll" ~: [ [pack "foo", pack "bar"]
@@ -17,6 +19,8 @@ testParse = "testParse" ~: [[1, 2], [3, 4]] ~=? parse "1\t2\n3\t4\n"
 testPart1 = "testPart1" ~: 6 ~=? part1 [2, 7, 8, 3, 6, 4]
 testChecksum1 = "testChecksum1" ~: 8 ~=? checksum1 "2\t7\t 5\n3\t6\t4\n"
 testAllPairs = "testAllPairs" ~: [(1, 2), (1, 3), (2, 3)] ~=? allPairs [1, 2, 3]
+testIsDivisibleFalse = "testIsDivisible" ~: False ~=? isDivisible (3, 5)
+testIsDivisibleTrue = "testIsDivisible" ~: True ~=? isDivisible (3, 12)
 
 splitOnTabs = T.splitOn (pack "\t")
 splitAll = (Prelude.map splitOnTabs) . T.lines . pack
@@ -28,6 +32,8 @@ checksum1 = checksum part1
 
 allPairs [] = []
 allPairs (x:xs) = Prelude.map (\y -> (x,y)) xs ++ allPairs xs
+
+isDivisible (x,y) = x `mod` y == 0 || y `mod` x == 0
 
 main = do
     runTestTT allTests
