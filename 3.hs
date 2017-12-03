@@ -4,13 +4,14 @@ allTests = test [testSteps, testCoords, testSumData]
 
 stepsTestCases = [(1, 0), (12, 3), (23, 2), (1024, 31)]
 makeTest f (input, expected) = expected ~=? f input
-testSteps = test $ map (makeTest steps) stepsTestCases
+mapTests f = test . map (makeTest f)
+testSteps = mapTests steps stepsTestCases
 
 coordsTestCases = [(1, (0, 0)), (2, (1, 0)), (5, (-1, 1)), (12, (2, 1))]
-testCoords = test $ map (makeTest coords) coordsTestCases
+testCoords = mapTests coords coordsTestCases
 
 sumDataTestCases = [(1, 1), (2, 1), (3, 2), (4, 4), (5, 5), (6, 10), (7, 11)]
-testSumData = test $ map (makeTest sumData) sumDataTestCases
+testSumData = mapTests sumData sumDataTestCases
 
 coords :: Int -> (Int, Int)
 coords 1 = (0, 0)
