@@ -2,7 +2,7 @@ import Test.HUnit
 
 allTests = test [testSteps, testCoords, testSumNeighbors,testNeighbors]
 
-stepsTestCases = [(1, 0), (12, 3), (23, 2), (1024, 31)]
+stepsTestCases = [(1, 0), (12, 3), (23, 2), (1024, 31), (368078, 371)]
 makeTest f (input, expected) = expected ~=? f input
 mapTests f = test . map (makeTest f)
 testSteps = mapTests steps stepsTestCases
