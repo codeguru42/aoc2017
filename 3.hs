@@ -1,6 +1,6 @@
 import Test.HUnit
 
-allTests = test [testSteps, testCoords, testSumData]
+allTests = test [testSteps, testCoords, testSumNeighbors]
 
 stepsTestCases = [(1, 0), (12, 3), (23, 2), (1024, 31)]
 makeTest f (input, expected) = expected ~=? f input
@@ -10,8 +10,8 @@ testSteps = mapTests steps stepsTestCases
 coordsTestCases = [(1, (0, 0)), (2, (1, 0)), (5, (-1, 1)), (12, (2, 1))]
 testCoords = mapTests coords coordsTestCases
 
-sumDataTestCases = [(1, 1), (2, 1), (3, 2), (4, 4), (5, 5), (6, 10), (7, 11)]
-testSumData = mapTests sumData sumDataTestCases
+sumNeighborsTestCases = [(1, 1), (2, 1), (3, 2), (4, 4), (5, 5), (6, 10), (7, 11)]
+testSumNeighbors = mapTests sumNeighbors sumNeighborsTestCases
 
 coords :: Int -> (Int, Int)
 coords 1 = (0, 0)
@@ -39,8 +39,8 @@ steps :: Int -> Int
 steps n = abs x + abs y
     where (x, y) = coords n
 
-sumData :: Int -> Int
-sumData = undefined
+sumNeighbors :: Int -> Int
+sumNeighbors = undefined
 
 main = do
     runTestTT allTests
