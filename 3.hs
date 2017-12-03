@@ -42,6 +42,9 @@ steps n = abs x + abs y
 sumNeighbors :: Int -> Int
 sumNeighbors = undefined
 
+lbSum n = head . filter (>n) $ map sumNeighbors [1..]
+
 main = do
     runTestTT allTests
     print $ steps 368078
+    print $ lbSum 368078
