@@ -8,13 +8,12 @@ testInvalidPassPhrase1 = False ~=? isValidPassPhrase1 "aa bb cc dd aa"
 testIsAnagram = True ~=? isAnagramOf "abcde" "ecdab"
 testIsNotAnagram = False ~=? isAnagramOf "abcde" "fghij"
 
-validate1 y ys = (not $ y `elem` ys)
+validate1 [] = True
+validate1 (y:ys) = (not $ y `elem` ys) && (validate1 ys)
 isValidPassPhrase1 = isValidPassPhrase validate1
 
-isValidPassPhrase f s = validate xs
+isValidPassPhrase validate s = validate xs
     where xs = T.splitOn (pack " ") (pack s)
-          validate [] = True
-          validate (y:ys) = (f y ys) && (validate ys)
 countValidPassPhrases f = Prelude.length . Prelude.filter f
 
 isAnagramOf x y = (sort x) == (sort y)
