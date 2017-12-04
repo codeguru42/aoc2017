@@ -1,8 +1,6 @@
 import Test.HUnit
-import Data.Text as T
 
-allTests = test [testSplitOnTabs
-                , testSplitAll
+allTests = test [ testSplitAll
                 , testParse
                 , testPart1
                 , testChecksum1
@@ -13,9 +11,8 @@ allTests = test [testSplitOnTabs
                 , testPart2
                 , testChecksum2
                 ]
-testSplitOnTabs = "testSplitOnTabs" ~: [pack "foo", pack "bar"] ~=? (splitOnTabs $ pack "foo\tbar")
-testSplitAll = "testSplitAll" ~: [ [pack "foo", pack "bar"]
-                                   , [pack "fooze", pack "baz"]
+testSplitAll = "testSplitAll" ~: [ ["foo", "bar"]
+                                   , ["fooze", "baz"]
                                  ]
                               ~=? splitAll "foo\tbar\nfooze\tbaz\n"
 testParse = "testParse" ~: [[1, 2], [3, 4]] ~=? parse "1\t2\n3\t4\n"
@@ -28,21 +25,20 @@ testDivisiblePairs = "testDivisiblePairs" ~: [(2, 8), (2, 6), (2, 4), (8, 4), (3
 testPart2 = "testPart2" ~: 4 ~=? part2 [5, 12, 7, 3]
 testChecksum2 = "testChecksum2" ~: 9 ~=? checksum2 "5\t9\t2\t8\n9\t4\t7\t3\n3\t8\t6\t5\n"
 
-splitOnTabs = T.splitOn (pack "\t")
-splitAll = (Prelude.map splitOnTabs) . T.lines . pack
-parse = Prelude.map (Prelude.map $ (read :: String -> Int) . unpack) . splitAll
+splitAll = (map words) . lines
+parse = map (map (read :: String -> Int)) . splitAll
 
-part1 xs = Prelude.maximum xs - Prelude.minimum xs
-checksum f = sum . (Prelude.map f) . parse
+part1 xs = maximum xs - minimum xs
+checksum f = sum . (map f) . parse
 checksum1 = checksum part1
 
 allPairs [] = []
-allPairs (x:xs) = Prelude.map (\y -> (x,y)) xs ++ allPairs xs
+allPairs (x:xs) = map (\y -> (x,y)) xs ++ allPairs xs
 
 isDivisible (x,y) = x `mod` y == 0 || y `mod` x == 0
-divisiblePairs = Prelude.filter isDivisible . allPairs
+divisiblePairs = filter isDivisible . allPairs
 part2 xs = (max x y) `div` (min x y)
-    where (x, y) = Prelude.head $ divisiblePairs xs
+    where (x, y) = head $ divisiblePairs xs
 checksum2 = checksum part2
 
 main = do
