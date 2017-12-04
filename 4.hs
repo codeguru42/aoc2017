@@ -2,20 +2,24 @@ import Test.HUnit
 import Data.List (sort)
 import Data.Text as T
 
-tests = test [testValidPassPhrase, testInvalidPassPhrase, testIsAnagram, testIsNotAnagram]
-testValidPassPhrase = True ~=? isValidPassPhrase "aa bb cc dd ee"
-testInvalidPassPhrase = False ~=? isValidPassPhrase "aa bb cc dd aa"
+tests = test [testValidPassPhrase1, testInvalidPassPhrase1, testIsAnagram, testIsNotAnagram]
+testValidPassPhrase1 = True ~=? isValidPassPhrase1 "aa bb cc dd ee"
+testInvalidPassPhrase1 = False ~=? isValidPassPhrase1 "aa bb cc dd aa"
 testIsAnagram = True ~=? isAnagramOf "abcde" "ecdab"
 testIsNotAnagram = False ~=? isAnagramOf "abcde" "fghij"
 
-isValidPassPhrase s = noDupes xs
+validate1 y ys = (not $ y `elem` ys)
+isValidPassPhrase1 = isValidPassPhrase validate1
+
+isValidPassPhrase f s = validate xs
     where xs = T.splitOn (pack " ") (pack s)
-          noDupes [] = True
-          noDupes (y:ys) = (not $ y `elem` ys) && (noDupes ys)
+          validate [] = True
+          validate (y:ys) = (f y ys) && (validate ys)
+countValidPassPhrases f = Prelude.length . Prelude.filter f
 
 isAnagramOf x y = (sort x) == (sort y)
 
 main = do
     runTestTT tests
     input <- readFile "4.txt"
-    print . Prelude.length . Prelude.filter isValidPassPhrase $ Prelude.lines input
+    print . countValidPassPhrases isValidPassPhrase1 $ Prelude.lines input
