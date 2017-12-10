@@ -14,6 +14,9 @@ def main():
             banks[(i + x + 1) % len(banks)] += 1
     print(len(all_banks))
 
+    i = all_banks.index(banks)
+    print(len(all_banks) - i)
+
 
 if __name__ == '__main__':
     main()
