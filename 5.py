@@ -15,10 +15,20 @@ def part1(jumps):
     return do_jumps(jumps, f)
 
 
+def part2(jumps):
+    def f(jumps, address):
+        if jumps[address] >= 3:
+            jumps[address] -= 1
+        else:
+            jumps[address] += 1
+    return do_jumps(jumps, f)
+
+
 def main():
     file = open('5.txt')
     jumps = [int(line) for line in file]
     print(part1(jumps.copy()))
+    print(part2(jumps.copy()))
 
 if __name__ == '__main__':
     main()
