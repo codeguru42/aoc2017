@@ -5,7 +5,6 @@ def main():
         cells = [int(i) for i in line.split()]
         banks.extend(cells)
 
-    count = 0
     all_banks = []
     while banks not in all_banks:
         all_banks.append(banks.copy())
@@ -13,8 +12,7 @@ def main():
         banks[i] = 0
         for x in range(m):
             banks[(i + x + 1) % len(banks)] += 1
-        count += 1
-    print(count)
+    print(len(all_banks))
 
 
 if __name__ == '__main__':
