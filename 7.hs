@@ -7,10 +7,9 @@ parseLine l = (name, weight, children)
 
 parseAll = map parseLine . lines
 
-buildTree = foldr insertNode []
-
-insertNode node trees = undefined
+children  = foldr (\(_, _, cs) xs -> cs ++ xs) []
 
 main = do
     input <- readFile "7.txt"
-    print $ parseAll input
+    let nodes = parseAll input
+    print $ children nodes
