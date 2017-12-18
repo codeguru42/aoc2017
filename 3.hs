@@ -21,8 +21,8 @@ testSumNeighbors = mapTests sumNeighbors sumNeighborsTestCases
 coords :: Int -> (Int, Int)
 coords 1 = (0, 0)
 coords n
-    | n == sq = let (x, y) = coords ((oddrt - 2) * (oddrt - 2))
-                in (x + 1, y - 1)
+    | n == sq = let x = (oddrt - 1) `div` 2
+                in (x, -x)
     | otherwise = let (x, y) = coords sq
                   in case group of
                     0 -> (x + 1, y + index)
