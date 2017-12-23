@@ -1,5 +1,7 @@
 def main():
-    pass
+    file = open('23.txt')
+    for line in file:
+        print(line)
 
 
 if __name__ == '__main__':
